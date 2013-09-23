@@ -23,18 +23,17 @@
  * All rights reserved Please contact us for an alternative licence
  */
 
-require
-        .def(
+require.def(
         'antie/widgets/glwidget',
         [
+            'antie/lib/three.min',
             'antie/widgets/container',
             'antie/devices/device',
             'antie/devices/browserdevice',
             'antie/videosource',
             'antie/widgets/media',
-            'antie/lib/three.min',
         ],
-        function(Container, Device, VideoSource, Media) {
+        function(THREE, Container, Device, VideoSource, Media) {
             /**
              * The Image widget displays an image. It supports lazy
              * loading/unloading of images to conserve memory. You can
@@ -67,12 +66,11 @@ require
                             this._imageElement = null;
                             this._renderMode = Image.RENDER_MODE_CONTAINER;
                             this.addClass('glwidget');
-                            this.THREE = THREE;
                             this._animating = false;
-
                             this._application = this.getCurrentApplication();
                             this._device = this._application.getDevice();
-
+                            
+                            this.THREE = THREE;
                             this.camera = new THREE.PerspectiveCamera(75, this._size.width / this._size.height, 1, 10000);
                             this.camera.position.z = 1000;
 
