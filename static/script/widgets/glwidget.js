@@ -69,7 +69,7 @@ require.def(
                             this._animating = false;
                             this._application = this.getCurrentApplication();
                             this._device = this._application.getDevice();
-                            
+
                             this.THREE = THREE;
                             this.camera = new THREE.PerspectiveCamera(75, this._size.width / this._size.height, 1, 10000);
                             this.camera.position.z = 1000;
@@ -108,8 +108,7 @@ require.def(
                             return this.outputElement;
                         },
                         /**
-                         * 
-                         * 
+                         * The main animation loop
                          */
                         startAnimation: function() {
 
@@ -117,22 +116,30 @@ require.def(
                             this._animating = true;
 
                             function animate() {
+                                //Stop if necessary
                                 if (!self._animating)
                                     return;
 
+                                //Perform any actions requested by the application
                                 if (self._callback)
                                     self._callback();
 
+                                //Draw and repeat
                                 requestAnimationFrame(animate);
-
                                 self.renderer.render(self.scene, self.camera);
-
                             }
                             animate();
                         },
+                        /**
+                         * Set the function to be performed in the animation loop.
+                         * @param {type} callback Function to perform each frame
+                         */
                         setAnimCallback: function(callback) {
                             this._callback = callback;
                         },
+                        /**
+                         * Destroy the scene and remove the canvas.
+                         */
                         dispose: function() {
                             this._animating = false;
                             this.camera = null;
@@ -140,7 +147,6 @@ require.def(
                             this.scene = null;
 
                             this._canvasElement.parentNode.removeChild(this._canvasElement);
-
                         },
                         /**
                          * Sets the render mode.
